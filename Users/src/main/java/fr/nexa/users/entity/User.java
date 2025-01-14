@@ -1,5 +1,6 @@
 package fr.nexa.users.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
@@ -12,6 +13,7 @@ public class User {
 	private List<Address> addresses;
 	
 	public User() {
+		this.addresses = new ArrayList<Address>();
 		
 	}
 
@@ -21,6 +23,8 @@ public class User {
 		this.lastname = lastname;
 		this.email = email;
 		this.password = password;
+		this.addresses = new ArrayList<Address>();
+
 	}
 
 	public Integer getId() {
@@ -65,6 +69,12 @@ public class User {
 
 	public List<Address> getAddresses() {
 		return addresses;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
+				+ ", password=" + password + "]";
 	}
 	
 	
