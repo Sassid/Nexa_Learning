@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import fr.nexa.users.entity.Address;
 import fr.nexa.users.entity.User;
@@ -21,12 +22,16 @@ public class UserService implements IUserService {
 		if (users.isEmpty()) {
 			return null;
 		}
-		for (User u : users) {
-			if (u.getEmail().equalsIgnoreCase(email)) {
-				return u;
-			}
-		}
-		return null;
+//		for (User u : users) {
+//			if (u.getEmail().equalsIgnoreCase(email)) {
+//				return u;
+//			}
+//		}
+//		return null;(
+
+		// With Stream Method :
+
+		return users.stream().filter(u -> (u.getEmail().equalsIgnoreCase(email))).findFirst().orElse(null);
 
 	}
 
@@ -38,12 +43,15 @@ public class UserService implements IUserService {
 		if (users.isEmpty()) {
 			return null;
 		}
-		for (User u : users) {
-			if (u.getId() == id) {
-				return u;
-			}
-		}
-		return null;
+//		for (User u : users) {
+//			if (u.getId() == id) {
+//				return u;
+//			}
+//		}
+//		return null;
+
+		// With Stream Method :
+		return users.stream().filter(u -> (u.getId() == id)).findFirst().orElse(null);
 	}
 
 	@Override
@@ -54,13 +62,16 @@ public class UserService implements IUserService {
 		if (users.isEmpty()) {
 			return null;
 		}
-		List<User> foundUsers = new ArrayList<>();
-		for (User u : users) {
-			if (u.getFirstname().equalsIgnoreCase(firstname)) {
-				foundUsers.add(u);
-			}
-		}
-		return foundUsers;
+//		List<User> foundUsers = new ArrayList<>();
+//		for (User u : users) {
+//			if (u.getFirstname().equalsIgnoreCase(firstname)) {
+//				foundUsers.add(u);
+//			}
+//		}
+//		return foundUsers;
+
+		// With Stream Method :
+		return users.stream().filter(u -> u.getFirstname().equals(firstname)).collect(Collectors.toList());
 	}
 
 	@Override
@@ -72,26 +83,41 @@ public class UserService implements IUserService {
 			return new HashSet<User>();
 		}
 
-		Set<User> foundUsers = new HashSet<User>();
-		for (User u : users) {
-			for (Address a : u.getAddresses()) {
-				if (a.getCity().equalsIgnoreCase(city)) {
-					foundUsers.add(u);
-				}
-			}
-		}
-		return foundUsers;
+//		Set<User> foundUsers = new HashSet<User>();
+//		for (User u : users) {
+//			for (Address a : u.getAddresses()) {
+//				if (a.getCity().equalsIgnoreCase(city)) {
+//					foundUsers.add(u);
+//				}
+//			}
+//		}
+//		return foundUsers;
+
+		// With Stream Method :
+
+		return users.stream().filter(u -> u.getAddresses().stream().anyMatch(a -> a.getCity().equalsIgnoreCase(city)))
+				.collect(Collectors.toSet());
 	}
 
 	@Override
-	public Map<String, Set<User>> findUserbyCity() throws Exception {
-		
+	public Map<String, Set<User>> findUserByCity() throws Exception {
+
 		if (users.isEmpty()) {
 			return new HashMap<>();
 		}
-		
-		Map<String, List<User>> map = new 
-		return null;
+		Map<String, Set<User>> map = new HashMap<>();
+		Set<String> cities = new HashSet<>();
+		// on détermine d'abord la liste de toutes les villes
+		for (User u : users) {
+			for (Address a : u.getAddresses()) {
+				cities.add(a.getCity());
+			}
+		}
+		for (String v : cities) {
+			Set<User> usersOfCity = findUserFromCity(v);
+			map.put(v, usersOfCity);
+		}
+		return map;
 	}
 
 	public List<User> getAllUsers() {

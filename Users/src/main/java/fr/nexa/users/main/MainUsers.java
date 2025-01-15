@@ -2,6 +2,8 @@ package fr.nexa.users.main;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import fr.nexa.users.entity.Address;
 import fr.nexa.users.entity.User;
@@ -108,14 +110,26 @@ public class MainUsers {
 //	    	 	e.printStackTrace();
 //	     	}
 	     
-	     try {
-	    	 System.out.println(userService.findUserFromCity("paris"));
-	    	 System.out.println("----------------------------------");
-	    	 userService.getUsers("blaze").forEach(u -> System.out.println(u));
-	     } catch (Exception e) {
-	    	 e.printStackTrace();
-	     }
+//	     try {
+//	    	 System.out.println(userService.findUserFromCity("paris"));
+//	    	 System.out.println("----------------------------------");
+//	    	 userService.getUsers("blaze").forEach(u -> System.out.println(u));
+//	     } catch (Exception e) {
+//	    	 e.printStackTrace();
+//	     }
 	     
+	     try {
+				Map<String, Set<User>> map = userService.findUserByCity();
+				for (Map.Entry<String, Set<User>> entry : map.entrySet()) {
+					String ville = entry.getKey();
+					Set<User> usersOfVille = entry.getValue();
+					System.out.println("Ville : " + ville);
+					usersOfVille.forEach(u -> System.out.println(" -> " + u));
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 	     
 	}
 

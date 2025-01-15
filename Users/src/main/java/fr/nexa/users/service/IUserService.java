@@ -14,7 +14,7 @@ public interface IUserService {
 	
 	Set<User> findUserFromCity(String city) throws Exception;
 	
-	Map<String, Set<User>> findUserbyCity(String city) throws Exception;
+	Map<String, Set<User>> findUserByCity() throws Exception;
 	
 
 }
