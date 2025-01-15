@@ -12,15 +12,18 @@ public class Client {
 	private String password;
 	private Set<Compte> comptes;
 
-	public Client(String nom, String prenom, String email, String password, Set<Compte> comptes) {
+	public Client() {
+		this.comptes = new HashSet<>();
+	}
+
+	public Client(String nom, String prenom, String email, String password) {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.email = email;
 		this.password = password;
-		this.comptes = comptes;
+		this.comptes = new HashSet<>();
 	}
 
-	
 	public Integer getId() {
 		return id;
 	}
@@ -63,6 +66,12 @@ public class Client {
 
 	public Set<Compte> getComptes() {
 		return comptes;
+	}
+
+	@Override
+	public String toString() {
+		return "Client [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", password="
+				+ password + "]";
 	}
 
 }

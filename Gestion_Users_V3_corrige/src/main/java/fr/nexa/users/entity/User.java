@@ -1,26 +1,29 @@
-package fr.nexa.banque.entity;
+package fr.nexa.users.entity;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Client {
+public class User {
 
 	private Integer id;
 	private String nom;
 	private String prenom;
 	private String email;
 	private String password;
-	private Set<Compte> comptes;
+	private List<Adresse> adresses;
 
-	public Client(String nom, String prenom, String email, String password, Set<Compte> comptes) {
+	public User() {
+		this.adresses = new ArrayList<>();
+	}
+
+	public User(String nom, String prenom, String email, String password) {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.email = email;
 		this.password = password;
-		this.comptes = comptes;
+		this.adresses = new ArrayList<>();
 	}
 
-	
 	public Integer getId() {
 		return id;
 	}
@@ -61,8 +64,14 @@ public class Client {
 		this.password = password;
 	}
 
-	public Set<Compte> getComptes() {
-		return comptes;
+	public List<Adresse> getAdresses() {
+		return adresses;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", password=" + password
+				+ "]";
 	}
 
 }

@@ -7,7 +7,8 @@ public class Compte {
 	private Float solde;
 	private Float taux;
 
-	
+	public Compte() {
+	}
 
 	public Compte(String titre, Float solde, Float taux) {
 		this.titre = titre;
@@ -31,19 +32,19 @@ public class Compte {
 		this.titre = titre;
 	}
 
-	public float getSolde() {
+	public Float getSolde() {
 		return solde;
 	}
 
-	public void setSolde(float solde) {
+	public void setSolde(Float solde) {
 		this.solde = solde;
 	}
 
-	public float getTaux() {
+	public Float getTaux() {
 		return taux;
 	}
 
-	public void setTaux(float taux) {
+	public void setTaux(Float taux) {
 		this.taux = taux;
 	}
 
@@ -51,7 +52,5 @@ public class Compte {
 	public String toString() {
 		return "Compte [id=" + id + ", titre=" + titre + ", solde=" + solde + ", taux=" + taux + "]";
 	}
-	
-	
 
 }
