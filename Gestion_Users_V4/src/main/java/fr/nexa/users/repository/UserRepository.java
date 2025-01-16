@@ -33,23 +33,55 @@ public class UserRepository implements IUsersRepository {
 		ResultSet rs = null;
 
 		try {
-			String request = "INSERT INTO user(nom, prenom, email, password" + " VALUES(?,?,?,?)";
+			String request = "INSERT INTO user(nom, prenom, email, password) VALUES(?,?,?,?)";
 
 			PreparedStatement ps = connection.prepareStatement(request, Statement.RETURN_GENERATED_KEYS);
+			
+			ps.setString(1, user.getNom());
+			ps.setString(2, user.getPrenom());
+			ps.setString(3, user.getEmail());
+			ps.setString(4, user.getPassword());
 
 			ps.executeUpdate();
 
 			rs = ps.getGeneratedKeys();
+			
+			if (rs != null && rs.next()) {
+				return rs.getInt(1);
+			}
 
 		} finally {
-			// TODO: handle finally clause
+			if (connection != null && !connection.isClosed() ) {
+				connection.close();
+			}
+			if (rs != null && !rs.isClosed()) {
+				rs.close();
+			}
 		}
 		return null;
 	}
 
 	@Override
 	public void updateUser(User user) throws Exception {
-		// TODO Auto-generated method stub
+		if (user == null) {
+			throw new NullPointerException("Le user à créer doit être non NULL !");
+		}
+
+		if (user.getNom() == null || user.getNom().isBlank() || user.getPrenom() == null || user.getPrenom().isBlank()
+				|| user.getEmail() == null || user.getEmail().isBlank() || user.getPassword() == null
+				|| user.getPassword().isBlank()) {
+			throw new IllegalArgumentException("Un ou plusieurs paramètres sont manquants");
+
+		}
+
+		Connection connection = NexaDbConnector.getConnection();
+		ResultSet rs = null;
+		
+		try {
+			
+		} finally {
+			// TODO: handle finally clause
+		}
 
 	}
 

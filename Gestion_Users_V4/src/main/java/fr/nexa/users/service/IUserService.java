@@ -8,9 +8,19 @@ import fr.nexa.users.entity.User;
 
 public interface IUserService {
 
+	Integer addUser(User user) throws Exception;
+
+	void updateUser(User user) throws Exception;
+
+	void removeUser(Integer id) throws Exception;
+
 	User getUser(Integer id) throws Exception;
+
 	User getUser(String email) throws Exception;
+
 	List<User> getUsers(String name) throws Exception;
+
 	Set<User> findUsersOfVille(String ville) throws Exception;
+
 	Map<String, Set<User>> findUsersByVille() throws Exception;
 }
