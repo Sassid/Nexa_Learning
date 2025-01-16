@@ -30,17 +30,35 @@ public class Main {
 		client2.getComptes().add(compte22);
 		ClientService.getClients().add(client2);
 		
+		Client client3 = new Client("popo", "Jin", "jin@gmail.com", "gackt");
+		client3.setId(3);
+		Compte compte31 = new Compte("Principal", -300f, 0.01f);
+		compte31.setId(31);
+		Compte compte32 = new Compte("Epargne", -400f, 0.02f);
+		compte32.setId(32);
+		client3.getComptes().add(compte31);
+		client3.getComptes().add(compte32);
+		ClientService.getClients().add(client3);
+		
+		
+//		try {
+//			System.out.println("Solde des comptes avant l'opération de bouclage :");
+//			System.out.println("--------------------------------------------------");
+//			cs.afficherSoldes();
+//			System.out.println("Opération de bouclage en cours...");
+//			System.out.println("---------------------------------");
+//			cs.bouclerComptes();
+//			System.out.println("Solde des comptes après l'opération de bouclage :");
+//			System.out.println("--------------------------------------------------");
+//			cs.afficherSoldes();
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+		
 		try {
-			System.out.println("Solde des comptes avant l'opération de bouclage :");
-			System.out.println("--------------------------------------------------");
-			cs.afficherSoldes();
-			System.out.println("Opération de bouclage en cours...");
-			System.out.println("---------------------------------");
-			cs.bouclerComptes();
-			System.out.println("Solde des comptes après l'opération de bouclage :");
-			System.out.println("--------------------------------------------------");
-			cs.afficherSoldes();
-			
+			System.out.println("Liste des clients débiteurs :");
+			cs.getClientsAyantSoldesDebiteurs();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

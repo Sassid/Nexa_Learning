@@ -10,15 +10,15 @@ import fr.nexa.banque.entity.Compte;
 public class ClientService implements IClientService {
 
 	private static Set<Client> clients = new HashSet<>();
-	
+
 	private final CompteService cs = new CompteService();
-	
+
 	public ClientService() {
 	}
-	
+
 	@Override
 	public void bouclerComptes() throws Exception {
-		
+
 		for (Client client : clients) {
 			for (Compte compte : client.getComptes()) {
 				cs.boucler(client.getId(), compte.getId());
@@ -36,9 +36,27 @@ public class ClientService implements IClientService {
 		}
 	}
 
+	@Override
+	public void getClientsAyantSoldesDebiteurs() throws Exception {
+		for (Client client : clients) {
+			System.out.println("Client débiteur: " + client.getNom().toUpperCase() + " " + client.getPrenom());
+			for (Compte compte : client.getComptes()) {
+				if (compte.getSolde() < 0) {
+					System.out.println(" => compte :" + compte.getTitre() + ", solde :" + compte.getSolde());
+				}
+			}
+		}
+
+	}
+
+	@Override
+	public void getClientsSansCompteEpargne() throws Exception {
+		// TODO Auto-generated method stub
+
+	}
+
 	public static Set<Client> getClients() {
 		return clients;
 	}
 
-	
 }
